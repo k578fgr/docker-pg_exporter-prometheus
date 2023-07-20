@@ -1,0 +1,14 @@
+[Unit]
+Desciption=Prometheus PostgresQL exporter
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+User=postgres
+Group=postgres
+Environment=DATA_SOURCE_NAME=postgresql://postgres:postgres@127.0.0.1:5432/postgres?sslmode=disable
+#Environment=PG_EXPORTER_EXPORTER_EXTEND_QUERY_PATH=/var/lib/postgresql/queries.yaml
+ExecStart=/usr/bin/postgres_exporter --web.listen-address=0.0.0.0:9187
+[Install]
+WantedBy=multi-user.target
